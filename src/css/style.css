@@ -58,232 +58,223 @@
 .menu-toggle i {
     transition: transform 0.3s ease-in-out;
 }
+
 @media (max-width: 840px) {
- 
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    position: absolute;
-    top: 100px;
-    left: 0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0;
 
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-  }
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 0;
 
-  .navbar ul.active {
-    max-height: 500px; 
-    padding: 20px 0;
-  }
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    }
 
-  .menu-toggle {
-    display: block;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 1001;
-  }
+    .navbar ul.active {
+        max-height: 500px;
+        padding: 20px 0;
+    }
 
-  .logo img {
-    width: 80px;
-  }
+    .menu-toggle {
+        display: block;
+        font-size: 28px;
+        cursor: pointer;
+        z-index: 1001;
+    }
 
-  .hero-section {
-    height: auto;
-    min-height: 70vh;
-  }
+    .logo img {
+        width: 80px;
+    }
+
+    .hero-section {
+        height: auto;
+        min-height: 70vh;
+    }
 }
 
 /* --- Hero Section --- */
 :root {
-    --slide-time: 5000ms;
+    --slide-time: 6000;
 }
 
 /* Slider container */
+/* ==========================
+   Slider Section Styles
+   ========================== */
 .slider {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    background: #0a0a0a;
 }
 
-/* Slides row */
+/* Slides Wrapper */
 .slides {
     display: flex;
+    width: 500%;
     height: 100%;
-    transition: transform 700ms ease;
-    will-change: transform;
+    transition: transform 1s ease-in-out;
 }
 
-/* Each slide */
+/* Single Slide */
 .slide {
-    min-width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* image fits entirely, no zoom; black bars if ratios differ */
-.slide img {
-    max-width: 100%;
-    max-height: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    background: #000;
-}
-
-/* Hero text container */
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 800px;
-    text-align: center;
-    z-index: 10;
-}
-
-#slide-title {
-    color: white;
-    font-size: 3rem;
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-#slide-text {
-    color: white;
-    font-size: 1.2rem;
-    margin-top: 20px;
-}
-
-/* bottom controls */
-.bottom-text {
-    margin: auto;
-    width: 100%;
-    position: absolute;
-    left: 50%;
-    bottom: 28px;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 40px;
-    align-items: flex-end;
-    z-index: 20;
-    padding: 0 12px;
-    user-select: none;
-    /* ... existing styles ... */
-    display: flex;
-    gap: 40px;
-    align-items: flex-end;
-    z-index: 20;
-    padding: 0 12px;
-    user-select: none;
-    justify-content: center;
-    /* Add this line to center the items horizontally */
-}
-
-.bottom-text .item {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    max-width: 400px;
-    text-align: center;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.75);
-    transition: color 200ms;
-}
-
-.bottom-text .item.active {
-    color: #fff;
-    font-weight: 600;
-}
-
-/* the line container (dim background) */
-.line {
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.18);
-    border-radius: 2px;
-    overflow: hidden;
+    flex: 1 0 100%;
     position: relative;
 }
 
-/* the animated fill that grows left->right */
-.line .fill {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0%;
-    background: #fff;
-    border-radius: 2px;
+.slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    background-size: cover;
+    filter: brightness(70%);
+    transition: transform 0.8s ease;
 }
 
-/* small responsive tweaks */
-@media (max-width:720px) {
-    .bottom-text {
-        gap: 12px;
-        bottom: 18px;
-    }
+.slide img:hover {
+    transform: scale(1.05);
+}
 
-    .bottom-text .item {
-        font-size: 12px;
-        max-width: 120px;
-    }
+/* Hero Text Overlay */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    z-index: 2;
+    max-width: 600px;
+}
 
-    #slide-title {
+.hero-text h2 {
+    font-size: 2.8rem;
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+/* Bottom Navigation */
+.bottom-text {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* space between items */
+    align-items: center;
+    padding: 0 40px;
+    /* add side padding */
+    z-index: 3;
+    flex-wrap: wrap;
+    /* allow items to wrap on smaller screens */
+}
+
+.bottom-text .item {
+    flex: 1;
+    /* equal width for each button */
+    text-align: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: #ccc;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.bottom-text .item:hover,
+.bottom-text .item[aria-pressed="true"] {
+    color: #fff;
+}
+
+.bottom-text .line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-top: 6px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.bottom-text .fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: #ff7f11;
+    transition: width 0.4s ease-in-out;
+}
+
+.bottom-text .item[aria-pressed="true"] .fill {
+    width: 100%;
+}
+
+/* ==========================
+   Responsive Design
+   ========================== */
+@media (max-width: 992px) {
+    .hero-text h2 {
         font-size: 2rem;
     }
 
-    #slide-text {
+    .hero-text p {
         font-size: 1rem;
+    }
+
+    .bottom-text {
+        gap: 12px;
     }
 }
 
-/* --- Navigation Arrows --- */
-.slider-nav-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 3;
-    color: white;
-    font-size: 2.5rem;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s ease;
-    border: none;
-}
+@media (max-width: 600px) {
+    .slider {
+        height: 80vh;
+    }
 
-.slider-nav-arrow:hover {
-    background: rgba(0, 0, 0, 0.5);
-}
+    .hero-text {
+        left: 5%;
+        top: 40%;
+    }
 
-.slider-nav-left {
-    left: 20px;
-}
+    .hero-text h2 {
+        font-size: 1.6rem;
+    }
 
-.slider-nav-right {
-    right: 20px;
+    .hero-text p {
+        font-size: 0.9rem;
+    }
+
+    .bottom-text {
+        flex-direction: column;
+        gap: 8px;
+        bottom: 15px;
+    }
 }
 
 
+/* ///////////////////Hover Section /////////////////////////// */
 .hover-section {
     margin: 0 130px;
     padding: 40px;
@@ -577,17 +568,14 @@
 }
 
 .stat-box {
+    width: 250px;
     background: #fff;
     padding: 30px;
     text-align: center;
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.stat-box:hover {
-    transform: translateY(-6px);
-}
 
 .stat-box i {
     font-size: 36px;
@@ -598,7 +586,8 @@
 
 .stat-box h2 {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 2.5rem;
+    transform: scaleY(1.1);
+    font-size: 2.2rem;
     font-weight: 800;
     color: #154d2f;
     margin-bottom: 8px;
@@ -813,7 +802,7 @@ ul {
 
 .contact-list li,
 .link-list li {
-    gap: 10px; 
+    gap: 10px;
     margin-bottom: 15px;
 }
 
