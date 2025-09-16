@@ -33,14 +33,18 @@
 
     const slideTime = parseInt(
         getComputedStyle(document.documentElement).getPropertyValue('--slide-time')
-    );
+    ) || 6000;
 
     let index = 0;
     let timer;
 
+    const transitionDuration = 700;
+    slidesEl.style.transition = `transform ${transitionDuration}ms ease-in-out`;
+
     const updateActive = (newIndex) => {
         items.forEach((it, idx) => {
             it.classList.toggle('active', idx === newIndex);
+            it.setAttribute('aria-pressed', idx === newIndex ? 'true' : 'false');
         });
     };
 
@@ -57,6 +61,8 @@
     };
 
     const goTo = (i) => {
+        clearTimeout(timer);
+
         index = (i + total) % total;
         slidesEl.style.transform = `translateX(-${index * 100}%)`;
         updateActive(index);
@@ -65,44 +71,35 @@
         slideTitle.innerHTML = slideContent[index].title;
         slideText.innerHTML = slideContent[index].text;
 
-        // Reset the timer only after a successful transition
-        restartTimer();
+        // ⬇️ FIXED: schedule next slide after slideTime
+        timer = setTimeout(() => {
+            next();
+        }, slideTime);
     };
 
     const next = () => {
         goTo(index + 1);
     };
 
-    const restartTimer = () => {
-        if (timer) clearInterval(timer);
-        timer = setInterval(next, slideTime);
-    };
-
     // Events
     items.forEach((it, idx) => {
-        it.addEventListener('click', () => {
-            goTo(idx);
-        });
+        it.addEventListener('click', () => goTo(idx));
     });
 
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight') {
-            goTo(index + 1);
-        } else if (e.key === 'ArrowLeft') {
-            goTo(index - 1);
-        }
+    sliderEl.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+    });
+    sliderEl.addEventListener('mouseleave', () => {
+        timer = setTimeout(() => next(), slideTime);
     });
 
-    // Mouse events to pause and resume on hover
-    sliderEl.addEventListener('mouseenter', () => clearInterval(timer));
-    sliderEl.addEventListener('mouseleave', () => restartTimer());
-
-    // Init
     window.addEventListener('load', () => {
         sliderEl.style.display = 'block';
         goTo(0);
     });
 })();
+
+
 
 // Counter Animation
 document.addEventListener("DOMContentLoaded", () => {
